@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Url shortener</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="main" class="flex__column">
+
+        <h1>Url shortener</h1>
+        <p>A URL shortener built with powerful tools to help you grow and protect your brand</p>
+    
+        <form class="flex form__container" action="/url" method="POST">
+            <input type="url" class="text__input" name="url" placeholder="https://example.com" required />
+            <input type="submit" class=submit__btn value="SHORTEN">
+        </form>
+    
+        <% if (locals.id) { %>
+            <h3>Generated URL: http://localhost:8001/url/<%=locals.id %></h3>
+        <% } %>
+    
+        <% if (locals.urls) { %>
+            <table border="1">
+                <tr>
+                    <th>Sr.no</td>
+                    <th>Short id</th>
+                    <th>Redirect URL</th>
+                    <th>Clicks</th>
+                </tr>
+                <% urls.forEach((element,index) => { %>
+                    
+    
+                    <tr>
+                        <td><%= index %></td>
+                        <td><%= element.shortId %></td>
+                        <td><%= element.redirectURL %></td>
+                        <td><%= element.visitHistory.length%></td>
+                    </tr>
+                    
+                <% }) %>
+    
+            </table>
+        <% } %>
+        
+    </div>
+</body>
+</html>
