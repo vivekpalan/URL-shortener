@@ -1,19 +1,24 @@
+require('dotenv').config();
 const express = require('express');
-const port = 8001;
 const path = require('path')
 const urlRoutes = require('./routes/urlRoutes')
 const { connection } = require('./connection/connect');
 const URL = require('./models/url')
 const app = express();
+console.log(process.env.PORT,process.env.MONGO_DB_URI)
 
 app.set('view engine','ejs');
 app.set('views',path.resolve('./views'));
 app.use(express.static(path.join(__dirname,'public')));
 
 
-connection('mongodb://localhost:27017/short-url').then(()=>{
+connection(process.env.MONGO_DB_URI).then(()=>{
     console.log('MongoDB connected successfully')
 })
+// connection('mongodb://localhost:27017/short-url').then(()=>{
+//     console.log('MongoDB connected successfully')
+// })
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -72,4 +77,4 @@ app.get('/url/:shortId',async(req,res)=>{
 
 // })
 
-app.listen(port,()=>console.log('Server started'));
+app.listen(8001,()=>console.log('Server started'));
